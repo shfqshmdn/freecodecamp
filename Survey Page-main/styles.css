@@ -1,0 +1,43 @@
+body {
+    font-family:sans-serif;
+    font-weight: 250;
+    margin: 50px 250px;
+    letter-spacing: 1.5px;
+    background-color:#EAFDFC;
+  }
+  
+  #title {
+    text-align:center;
+    font-size:50px;
+  }
+  
+  #description {
+    text-align:center;
+    font-size:20;
+  }
+  
+  footer {
+    text-align:center;
+  }
+  
+  #survey-form{
+    color:#86E5FF;
+    background-color: #0081C9;
+    border: 10px solid #5BC0F8;
+    border-radius: 5px;
+    margin:25px 50px;
+    align-items:center;
+    outline-style:groove;
+  }
+  
+  .form-group {
+    margin: 25px;
+  }
+  
+  .submit-button {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;;
+    color: black;
+    cursor: pointer;
+  }

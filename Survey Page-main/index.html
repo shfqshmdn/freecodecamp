@@ -1,0 +1,91 @@
+<html>
+  <head>
+    <title>
+
+    </title>
+    <link rel="stylesheet" href="styles.css"> 
+  </head>
+  <body>
+    <header>
+      <div class="heading">
+        <h1 id="title">Survey Form</h1>
+      </div>
+        <p id="description">For Gamers</p>
+    </header>
+    <div class="form-container">
+        <form id="survey-form">
+          <div class="form-group">
+            <label class="form-name" id="name-label">Name</label>
+              <input class="form-input" type="text" id="name" placeholder="Enter your name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-name"  id="email-label">Email</label>
+              <input class="form-input" type="email" id="email" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label class="form-name"  id="number-label">Number</label>
+              <input class="form-input" type="number" id="number" placeholder="Age" min="10" max="50">
+          </div>
+          <div class="form-group">
+            <p>Occupation</p>
+            <label class="form-name"  id="role-label">
+              <select class="form-input" type="select" id="dropdown" placeholder="Your occupation" required>
+              <option>Programmer</option>
+              <option>Singer</option>
+              <option>Teacher</option>
+              <option>Doctor</option>
+              <option>Businessman/Businesswoman</option>
+              <option>Journalist</option>
+              <option>Engineer</option>
+              <option>Pilot</option>
+              <option>Florist</option>
+              <option>Student</option>
+              <option>Other</option>
+              </select>
+            </label>
+          </div>
+          <div class="form-group">
+            <p>Gender</p>
+            <label class="form-name" id="gender-label">Male
+              <input class"form-input" value="male" type="radio" id="male" name="gender">  
+            </label> 
+            <label class="form-name" id="gender-label">Female
+              <input class"form-input" value="female" type="radio" id="female" name="gender">  
+            </label>         
+          </div>
+          <div class="form-group">
+          <p>
+            What games have you played in past 6 months?
+          </p>
+            <label class="form-name" id="checkbox-label">
+              <input class="form-input" value="genshin" type="checkbox">
+              Genshin Impact
+            </label>
+            <label class="form-name" id="checkbox-label">
+              <input class="form-input" value="dota" type="checkbox">
+              Dota 2
+            </label>
+            <label class="form-name" id="checkbox-label">
+              <input class="form-input" value="valorant" type="checkbox">
+              Valorant
+            </label>
+            <label class="form-name" id="checkbox-label">
+              <input class="form-input" value="lostark" type="checkbox">
+              Lost Ark
+            </label>
+          </div>
+          <div class="form-group">
+            <p>What do you like about the game?</p>
+            <label class="form-name" id="textarea-label"></label>
+              <textarea class="input-area" id="feedback" name="feedback" placeholder="Give your feeback" rows="5" cols="40"></textarea>
+            </label>
+
+          </div>
+          <div class"form-group">
+            <button class="submit-button" type="submit" id="submit">Submit</button>
+          </div>
+      </form>
+    </div>
+  </body>
+<footer>Form survey project for FreeCodeCamp by Shafiq Hamdan</footer>
+</html>

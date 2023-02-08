@@ -1,0 +1,215 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="webhackstyle.css">
+  </head>
+  <body>
+    <nav id="navbar">
+      <header>Web Hacking 101</header>
+      <ul>
+        <li><a href="#Introduction" class="nav-link">Introduction</a></li>
+        <li><a href="#Authentication" class="nav-link">Authentication</a></li>
+        <li><a href="#XSS" class="nav-link">XSS</a></li>
+        <li><a href="#LFI" class="nav-link">LFI</a></li>
+        <li><a href="#IDOR" class="nav-link">IDOR</a></li>
+        <li><a href="#CSRF" class="nav-link">CSRF</a></li>
+        <li><a href="#SSRF" class="nav-link">SSRF</a></li>
+        <li><a href="#SQLI" class="nav-link">SQLi</a></li>
+      </ul>
+    </nav>
+
+    <main id="main-doc">
+      <section class="main-section" id="Introduction">
+        <header>Introduction</header>
+        <article>
+          <p>Web hacking refers to the act of exploiting vulnerabilities in websites and web applications to gain unauthorized access to sensitive information or compromise the security of the system. Web applications are vulnerable to a wide range of threats, including SQL injection, Cross-Site Scripting (XSS), Cross-Site Request Forgery (CSRF), Remote Code Execution (RCE), Insecure Direct Object Reference (IDOR), and many others. These vulnerabilities arise from factors such as insecure coding practices, lack of input validation, and failure to enforce access controls.</p>
+          <p>Web hackers use various techniques and tools to identify and exploit vulnerabilities in web applications, such as automated scanning tools, manual testing, and social engineering. The consequences of successful web hacking can range from data theft and privacy violations to reputational damage and financial loss.</p>
+          <p>To prevent web hacking, it's essential to adopt secure coding practices, enforce access controls, validate user inputs, encrypt sensitive data, and regularly monitor logs and conduct security assessments. Additionally, keeping software and systems up to date and educating users on safe browsing practices can help mitigate the risk of web hacking attacks.</p>
+        </article>
+      </section>
+
+
+      <section class="main-section" id="Authentication">
+        <header>Authentication and Authorization</header>
+        <article>
+          <p>
+            Authentication refers to any verification process that checks whether a human or automated system is who or what it claims to be. Authentication is the process of verifying the identity of the individual. A unique identifier is added for the web application like Password, Login or username.  We can use OpenID, OAUTH, and SAML. The entire Authentication depends on the HTTP/HTTPS implementation.
+          </p>
+          <p>
+            Authorization is a process in which we have controls to allow or restrict resources. It is entirely dependent on business use cases and it varies end to end.  For strengthening the authorization we should implement logging for all privileged actions. Invalid sessions should be made to log out. 
+          </p>
+        </article>
+      </section>
+
+
+      <section class="main-section" id="XSS">
+        <header>XSS</header>
+        <article>
+          <p>
+            Cross-Site Scripting (XSS) is a type of security vulnerability that allows an attacker to inject malicious scripts into a web page viewed by other users. XSS can be used to steal sensitive information, such as cookies or credentials, or to perform actions on behalf of the victim, such as posting unwanted comments or making unauthorized purchases.
+          </p>
+          <p>
+            Type of XSS
+            <ul>
+              <li>Stored</li>
+              <li>Reflected</li>
+              <li>DOM based</li>
+            </ul>
+          </p>
+          <p>
+            For example, consider a web page that allows user input. The following code might be used to display alert on the page:
+          </p>
+          <code>
+            <pre> &lt;script&gt; alert()&lt;/script&gt;</pre>
+          </code>
+          <p>To prevent XSS attacks, it's important to properly validate and sanitize user input, such as by escaping special characters and encoding HTML entities, and to use a framework or library that provides built-in protection against XSS vulnerabilities.</p>
+        </article>
+      </section>
+
+
+      <section class="main-section" id="LFI">
+        <header>LFI</header>
+        <article>
+          <p>
+            Local File Inclusion (LFI) is a type of vulnerability that allows an attacker to include a local file, such as a sensitive system file, into a web page by manipulating input parameters in a web application.
+          </p>
+          <p>
+            Here is an example of a vulnerable PHP script that is susceptible to LFI attacks:
+          </p>
+          <code>
+            $file = $_GET['file'];
+            include($file);
+          </code>
+          <p>
+            In this code, the $file variable is directly passed to the include function, which will include the file specified in the file parameter of the URL. An attacker could exploit this vulnerability by sending a specially crafted request to the server, such as:
+          </p>
+          <code>
+            http://example.com/index.php?file=../../../etc/passwd
+          </code>
+          <p>
+            This request would include the sensitive /etc/passwd file, which contains information about system users, and display its contents on the web page. To prevent LFI attacks, it's important to validate and sanitize user input and to use functions that are not susceptible to path manipulation, such as include_once or require_once.
+          </p>
+          <p>
+            To prevent local file inclusion, validate user inputs, use functions for file access, disallow directory traversal characters, sanitize user inputs, and regularly monitor logs.
+          </p>
+        </article>
+      </section>
+
+
+      <section class="main-section" id="IDOR">
+        <header>IDOR</header>
+        <article>
+          <p>
+            Insecure Direct Object Reference (IDOR) is a type of vulnerability that occurs when an application exposes sensitive data or functionality by directly referencing an object, such as a database record, with a user-controlled identifier.
+          </p>
+          <p>
+            This vulnerability can be exploited by an attacker to access sensitive information and potentially steal or manipulate data. To prevent IDOR, it's important to validate user inputs, enforce access controls, and encrypt sensitive data. Additionally, using prepared statements and parameterized queries in database interactions can reduce the risk of IDOR attacks.
+          </p>
+          <p>
+            Here's a simple example of Insecure Direct Object Reference (IDOR) vulnerability in PHP:
+          </p>
+          <code>
+            <pre>&lt;?php
+  $user_id = $_GET['user_id'];
+  $conn = mysqli_connect('localhost', 'username', 'password', 'database');
+  $query = "SELECT * FROM users WHERE id = $user_id";
+  $result = mysqli_query($conn, $query);
+  $user = mysqli_fetch_assoc($result);
+  echo "User Name: ".$user['username'];
+?&gt;</pre>
+          </code>
+          <p>
+            <ol>
+                <li>A web application has a vulnerable endpoint that displays user information based on an identifier in the URL, such as a user ID.</li>
+                <li>The attacker inspects the URL structure and finds that the identifier is an integer, such as http://example.com/user_info.php?user_id=1.</li>
+                <li>The attacker modifies the identifier in the URL to access other users' information, such as http://example.com/user_info.php?user_id=2.</li>
+                <li>The web application, not checking the input or enforcing access controls, retrieves and displays the sensitive information belonging to other users.</li>
+            </ol>
+          </p>
+          <p>
+            To prevent Insecure Direct Object Reference (IDOR) vulnerabilities, it's essential to properly validate user inputs, enforce access controls to restrict access to sensitive data and functionality, encrypt sensitive data, and regularly monitor logs and conduct security assessments to detect and respond to IDOR attacks promptly, using techniques such as access control lists, rate limiting, and input sanitization to limit the risk of exploitation.
+          </p>
+        </article>
+      </section>
+
+
+      <section class="main-section" id="CSRF">
+        <header>CSRF</header>
+        <article>
+          <p>
+            Client Side Request Forgery (CSRF) is an attack that forces an end user to execute unwanted actions on a web application which is already authenticated. The hacker can send a link via an email and chat, and may trick the users of a web application into executing actions. In case the attack is on an administrator account the entire web application can be compromised. 
+          </p>
+          <p>Here is an example of how a CSRF attack could work:</p>
+          <ol>
+            <li>The attacker creates a malicious web page that contains a form that submits a request to a vulnerable web application.</li>
+            <li>The attacker tricks the victim into visiting the malicious web page.</li>
+            <li>The victim interacts with the form on the malicious web page, causing a request to be sent to the vulnerable web application.</li>
+            <li>The vulnerable web application processes the request as if it came from the victim, potentially performing an unintended action such as transferring funds or changing account settings.</li>
+          </ol>
+          <p>To prevent CSRF attacks, web applications can use techniques such as implementing same-site cookies and including a unique, per-request token in the form that is checked on the server.</p>
+        </article>
+      </section>
+
+
+      <section class="main-section" id="SSRF">
+        <header>SSRF</header>
+        <article>
+          <p>
+            Server Side Request Forgery (SSRF) is a type of vulnerability that allows an attacker to send HTTP requests from a vulnerable server to other internal or external systems. Here's a simple example to illustrate how SSRF works:
+          </p>
+            <ol>
+              <li>A web application has a vulnerable endpoint that allows users to submit URLs for retrieving and displaying external data.</li>
+              <li>The attacker submits a URL that points to an internal system, such as a local file or an intranet server, rather than an external resource.</li>
+              <li>The web application, not checking the origin or authenticity of the URL, sends a request to the internal system on behalf of the attacker.</li>
+              <li>The internal system processes the request and returns sensitive data, such as configuration files or secret tokens, back to the attacker.</li>
+            </ol>
+          <p>
+            To prevent Server Side Request Forgery (SSRF), it's essential to validate user inputs, restrict the URL schemes that are allowed, limit the capabilities of the requests that are sent, and monitor and log network traffic to detect and respond promptly to any SSRF attacks.
+          </p>
+        </article>
+      </section>
+
+
+      <section class="main-section" id="SQLI">
+        <header>SQLi</header>
+        <article>
+          <p>
+            Structured Query Language injection (SQLi) is a process of injecting the malicious SQL query via the input data from the client to the web application.
+          </p>
+          <p>
+            <ul>
+              <li>SQL injection can modify, read, and delete the sensitive information from the Databases.</li>
+              <li>Has the ability to issue commands to the operating system</li>
+              <li>Administration controls on the operations of the database</li>
+              <li>Done through simple SQL commands</li>
+            </ul>
+          </p>
+          <p>
+             An attacker could inject malicious SQL code into the search_term parameter by entering a value like this:
+          </p>
+          <code>
+            ' OR 1=1; --
+          </code>
+          <p>
+            The resulting SQL query would then look like this:
+          </p>
+          <code>
+            SELECT * FROM products WHERE name LIKE '%' OR 1=1; -- %';
+          </code>
+          <p>
+            This query would return all rows from the products table, regardless of the name value, allowing the attacker to view sensitive information in the database. To prevent this type of attack, it's important to always sanitize user input and use parameterized queries instead of dynamically generated SQL.
+          </p>
+          <p>To prevent SQL injection, you can follow these best practices:</p>
+          <ul>
+            <li>Use parameterized queries (prepared statements) instead of dynamic SQL.</li>
+            <li>Validate user inputs to ensure they match expected data types and formats.</li>
+            <li>Escape special characters in user inputs.</li>
+            <li>Use stored procedures.</li>
+            <li>Limit database user privileges to the minimum necessary.</li>
+            <li>Regularly monitor logs for signs of SQL injection attempts.</li>
+            <li>Regularly backup the database.</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
